@@ -103,7 +103,7 @@ func (cl *Client) Pull(ctx context.Context, q string, s bool) (h Header, r Paylo
 				// It's a header row, so extract the data
 				// {"queryId":null,"columnNames":["WINDOW_START","WINDOW_END","DOG_SIZE","DOGS_CT"],"columnTypes":["STRING","STRING","STRING","BIGINT"]}
 				if _, ok := zz["queryId"].(string); ok {
-					h.queryId = zz["queryId"].(string)
+					h.QueryId = zz["queryId"].(string)
 				} else {
 					cl.log("(Query ID not found - this is expected for a pull query)")
 				}
@@ -115,7 +115,7 @@ func (cl *Client) Pull(ctx context.Context, q string, s bool) (h Header, r Paylo
 						if n, ok := names[col].(string); n != "" && ok {
 							if t, ok := types[col].(string); t != "" && ok {
 								a := Column{Name: n, Type: t}
-								h.columns = append(h.columns, a)
+								h.Columns = append(h.Columns, a)
 
 							} else {
 								cl.log("Nil type found for column %v", col)

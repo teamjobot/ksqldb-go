@@ -89,9 +89,9 @@ func (cl *Client) Push(ctx context.Context, q string, rc chan<- Row, hc chan<- H
 			defer close(hc)
 			defer func() { doThis = false }()
 			// Try to close the query
-			payload := strings.NewReader("{\"queryId\":\"" + h.queryId + "\"}")
+			payload := strings.NewReader("{\"queryId\":\"" + h.QueryId + "\"}")
 			req, err := http.NewRequestWithContext(ctx, "POST", cl.url+"/close-query", payload)
-			cl.log("Closing ksqlDB query\t%v", h.queryId)
+			cl.log("Closing ksqlDB query\t%v", h.QueryId)
 			if err != nil {
 				return fmt.Errorf("Failed to construct HTTP request to cancel query\n%v", err)
 			}
@@ -127,7 +127,7 @@ func (cl *Client) Push(ctx context.Context, q string, rc chan<- Row, hc chan<- H
 					// It's a header row, so extract the data
 					// {"queryId":null,"columnNames":["WINDOW_START","WINDOW_END","DOG_SIZE","DOGS_CT"],"columnTypes":["STRING","STRING","STRING","BIGINT"]}
 					if _, ok := zz["queryId"].(string); ok {
-						h.queryId = zz["queryId"].(string)
+						h.QueryId = zz["queryId"].(string)
 					} else {
 						cl.log("Query ID not found - this is expected for a pull query")
 					}
@@ -139,7 +139,7 @@ func (cl *Client) Push(ctx context.Context, q string, rc chan<- Row, hc chan<- H
 							if n, ok := names[col].(string); n != "" && ok {
 								if t, ok := types[col].(string); t != "" && ok {
 									a := Column{Name: n, Type: t}
-									h.columns = append(h.columns, a)
+									h.Columns = append(h.Columns, a)
 
 								} else {
 									cl.log("Nil type found for column %v", col)
