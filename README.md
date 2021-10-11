@@ -1,14 +1,4 @@
-= ksqlDB Go library
-Robin Moffatt <robin@moffatt.me>
-v0.04, 8 October 2020
-
-:toc:
-
-This is a Go client for https://ksqldb.io/[ksqlDB]. It supports both pull and push queries, as well as command execution. 
-
-⚠️ Disclaimer #1: https://rmoff.net/2020/06/25/learning-golang-some-rough-notes-s01e00/[I am brand new to Go!] Tips (or PRs) to improve the code very welcome :)
-
-⚠️ Disclaimer #2: This is a personal project and not supported or endorsed by Confluent.
+This is a Go client for https://ksqldb.io/[ksqlDB]. It supports both pull and push queries, as well as command execution.
 
 image::ksqldb-go.gif[Animation of the ksqlDB Golang client in action]
 
@@ -20,7 +10,7 @@ This client is a Go module, therefore you can have it simply by adding the follo
 
 [source,golang]
 ----
-import "github.com/rmoff/ksqldb-go"
+import "github.com/teamjobot/ksqldb-go"
 ----
 
 Then run a build to have this client automatically added to your go.mod file as a dependency.
@@ -29,7 +19,7 @@ Manual install:
 
 [source,bash]
 ----
-go get -u github.com/rmoff/ksqldb-go
+go get -u github.com/teamjobot/ksqldb-go
 ----
 
 == Examples
@@ -128,7 +118,3 @@ if err := client.Execute(ctx, ksqlDBServer, `
     return fmt.Errorf("Error creating the DOGS stream.\n%v", err)
 }
 ----
-
-== TODO
-
-See https://github.com/rmoff/ksqldb-go/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
