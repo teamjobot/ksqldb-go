@@ -1,4 +1,4 @@
-This is a Go client for https://ksqldb.io/[ksqlDB]. It supports both pull and push queries, as well as command execution.
+This is a Go client for [ksqlDB](https://ksqldb.io/). It supports both pull and push queries, as well as command execution.
 
 ![Animation of the ksqlDB Golang client in action](ksqldb-go.gif)
 
@@ -97,7 +97,7 @@ if e != nil {
 }
 ```
 
-=== Execute a command
+### Execute a command
 
 ```Golang
 if err := client.Execute(ctx, ksqlDBServer, `
