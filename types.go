@@ -1,7 +1,6 @@
 package ksqldb
 
 import (
-	"strconv"
 	"strings"
 )
 
@@ -40,35 +39,26 @@ func (this Row) GetString(column string, hdr Header) *string {
 }
 
 func (this Row) GetInt(column string, hdr Header) *int {
-	str := this.GetString(column, hdr)
+	index := hdr.Index(column)
 
-	if str != nil {
+	if index == -1 {
 		return nil
 	}
 
-	i, err := strconv.Atoi(*str)
-
-	if err != nil {
-		return nil
-	}
-
-	return &i
+	//value := this[index].(int) // seems to be float64 even when defined as int
+	value := int(this[index].(float64))
+	return &value
 }
 
 func (this Row) GetFloat(column string, hdr Header) *float64 {
-	str := this.GetString(column, hdr)
+	index := hdr.Index(column)
 
-	if str != nil {
+	if index == -1 {
 		return nil
 	}
 
-	i, err := strconv.ParseFloat(*str, 64)
-
-	if err != nil {
-		return nil
-	}
-
-	return &i
+	value := this[index].(float64)
+	return &value
 }
 
 // Column represents the metadata for a column in a Row
